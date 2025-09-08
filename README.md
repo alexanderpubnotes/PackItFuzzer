@@ -1,4 +1,4 @@
-# HTTP Header Fuzzer
+# HTTP Header Fuzzer - PackItFuzzer
 
 A precision network fuzzer designed to test web servers by injecting crafted values into specific HTTP headers. Unlike raw packet tools, this fuzzer uses reliable TCP socket connections while maintaining full control over HTTP payload construction. Now with connection reuse for significantly faster testing.
 
@@ -23,8 +23,8 @@ A precision network fuzzer designed to test web servers by injecting crafted val
 
 ```bash
 # Clone or download the script
-git clone 
-cd http-header-fuzzer
+git clone https://github.com/alexanderpubnotes/PackItFuzzer.git
+cd PackItFuzzer
 
 # No additional installation needed!
 # The tool uses Python's standard socket library
@@ -35,13 +35,13 @@ cd http-header-fuzzer
 Run a basic test against a target web server:
 
 ```bash
-python3 http_fuzzer.py -t 192.168.1.100 -p 80 -H "User-Agent" -f wordlists/user_agents.txt
+python3 packitfuzzer.py -t 192.168.1.100 -p 80 -H "User-Agent" -f wordlists/user_agents.txt
 ```
 
 For faster testing with connection reuse:
 
 ```bash
-python3 http_fuzzer.py -t 192.168.1.100 -p 80 -H "User-Agent" -f wordlists/user_agents.txt --keep-alive
+python3 packitfuzzer.py -t 192.168.1.100 -p 80 -H "User-Agent" -f wordlists/user_agents.txt --keep-alive
 ```
 
 ## Usage
@@ -49,7 +49,7 @@ python3 http_fuzzer.py -t 192.168.1.100 -p 80 -H "User-Agent" -f wordlists/user_
 ### Basic Syntax
 
 ```bash
-python3 http_fuzzer.py -t TARGET_IP -p PORT -H HEADER -f WORDLIST [OPTIONS]
+python3 packitfuzzer.py -t TARGET_IP -p PORT -H HEADER -f WORDLIST [OPTIONS]
 ```
 
 ### Required Arguments
@@ -79,10 +79,10 @@ The `--keep-alive` option enables persistent TCP connections, dramatically impro
 
 ```bash
 # Without connection reuse (slower, more reliable)
-python3 http_fuzzer.py -t 10.10.10.10 -p 80 -H "Host" -f hostnames.txt
+python3 packitfuzzer.py -t 10.10.10.10 -p 80 -H "Host" -f hostnames.txt
 
 # With connection reuse (much faster)
-python3 http_fuzzer.py -t 10.10.10.10 -p 80 -H "Host" -f hostnames.txt --keep-alive
+python3 packitfuzzer.py -t 10.10.10.10 -p 80 -H "Host" -f hostnames.txt --keep-alive
 ```
 
 ### When to Use Keep-Alive
@@ -102,19 +102,19 @@ python3 http_fuzzer.py -t 10.10.10.10 -p 80 -H "Host" -f hostnames.txt --keep-al
 ### 1. Fuzz Host Header with Connection Reuse
 
 ```bash
-python3 http_fuzzer.py -t 10.10.10.10 -p 80 -H "Host" -f wordlists/hostnames.txt --keep-alive -o host_fuzz_results.csv
+python3 packitfuzzer.py -t 10.10.10.10 -p 80 -H "Host" -f wordlists/hostnames.txt --keep-alive -o host_fuzz_results.csv
 ```
 
 ### 2. Test API Authentication with Debug Output
 
 ```bash
-python3 http_fuzzer.py -t 192.168.1.100 -p 8080 -H "Authorization" -f wordlists/tokens.txt --headers-file api_headers.txt --debug
+python3 packitfuzzer.py -t 192.168.1.100 -p 8080 -H "Authorization" -f wordlists/tokens.txt --headers-file api_headers.txt --debug
 ```
 
 ### 3. Comprehensive Test with Custom Settings
 
 ```bash
-python3 http_fuzzer.py -t 172.16.10.5 -p 443 -H "Cookie" -f session_cookies.txt --headers-file auth_headers.txt --keep-alive -d 0.5 -T 10 -o results.csv
+python3 packitfuzzer.py -t 172.16.10.5 -p 443 -H "Cookie" -f session_cookies.txt --headers-file auth_headers.txt --keep-alive -d 0.5 -T 10 -o results.csv
 ```
 
 ## Creating Headers Files
@@ -173,10 +173,10 @@ The tool generates a CSV file with the following columns:
 
 ```bash
 # For maximum speed with stable servers
-python3 http_fuzzer.py -t 10.10.10.10 -p 80 -H "User-Agent" -f big_wordlist.txt --keep-alive -d 0.1
+python3 packitfuzzer.py -t 10.10.10.10 -p 80 -H "User-Agent" -f big_wordlist.txt --keep-alive -d 0.1
 
 # For reliability with unstable servers
-python3 http_fuzzer.py -t 10.10.10.10 -p 80 -H "User-Agent" -f big_wordlist.txt -d 0.5 -T 10
+python3 packitfuzzer.py -t 10.10.10.10 -p 80 -H "User-Agent" -f big_wordlist.txt -d 0.5 -T 10
 ```
 
 ### 2. Analyzing Results
